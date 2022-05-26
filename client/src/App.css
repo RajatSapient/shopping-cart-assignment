@@ -6,7 +6,10 @@
     padding: 0;
     overflow-x: hidden;
 }
-
+html{
+    position: relative;
+    min-height: 100%;
+}
 body{
     font-family: 'Dosis', sans-serif;
 }
@@ -191,12 +194,22 @@ header{
 .ecom-homecategories-wraper .ecom-home-categories:nth-child(even) .ecom-home-categories-order{
     order: 2;
 }
+.ecom-homecategories-wraper li:last-child{
+    margin-bottom: 100px;
+}
 
 /******************** Footer ***************************/
 
 .ecom-footer{
     background: #dedede;
     padding: 20px 0;
+    z-index:2
+}
+footer{
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
 }
 
 /******************** Product Listing Page ***************************/
@@ -260,7 +273,6 @@ header{
     background: #dedede;
     padding: 10px;
     border-radius: 8px;
-    min-height: 233px;
 }
 .ecom-productlisting .ecom-productcard .productimg-wrapper img{
     width: 100%;
@@ -279,12 +291,13 @@ header{
 }
 .ecom-productlisting .ecom-productl{
     width: 82%;
+    margin-bottom: 100px;
 }
 
 /******************** SignIn Page ***************************/
 .ecomsignin{
     margin-top: 160px;
-    min-height: 100vh
+    margin-bottom: 130px;
 }
 .ecomsignintext{
     margin-right: 40px;
@@ -526,13 +539,7 @@ button[disabled]{
   z-index: 1010;
 }
 
-/* @media only screen and (min-width: 576px) {
-    .container {
-        width: 100%;
-        margin: 0 auto;
-        max-width: 540px;
-    }
-} */
+
 @media only screen and (min-width: 768px) {
     .container{
         margin: 0 15px;
@@ -580,6 +587,7 @@ button[disabled]{
     }
     .ecom-cart {
         margin-top: 123px;
+        margin-bottom: 120px;
     }
     .cart-header {
         display: none;
@@ -625,6 +633,26 @@ button[disabled]{
     .ecom-mob-flex-wrap{
         flex-wrap: wrap;
     }
+    .ecom-home-categories {
+        padding: 25px 0;
+    }
+    .ecom-home-categories-imgwrap {
+         min-height: unset;
+    }
+    .ecom-productlisting .ecom-productcard .productimg-wrapper {
+        max-height: unset; 
+         min-height: unset;
+    }
+    .ecom-flexwrap-mob{
+        flex-wrap: wrap;
+    }
+    .ecom-flex-100-mob{
+        flex: 0 0 100%!important;
+        width: 100%!important;
+    }
+    .ecomsignintext {
+        margin-right: 0;
+    }
 
 }
 @media only screen and (max-width: 540px) {
@@ -634,5 +662,16 @@ button[disabled]{
     .ecom-header .header-menu .menubar {
         display: none;
     }
+    .ecom-cart-img-wrapper {
+        max-width: 65px;
+    }
+    .ecom-cartbody li {
+        padding: 10px;
+    }
+    .ecom-product-desc {
+        min-width: 140px;
+        max-width: 170px;
+    }
+
 }
 

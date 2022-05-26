@@ -59,11 +59,14 @@ const addToBasket = (id,imageURL,price,description,name) => {
             <h2>My Cart ({`${basket?.reduce((acc,cv)=>(acc+=cv.quantity),0)} Item`})</h2>
             <span onClick={onClose} className="cursor-pointer"><img src ={closeBtnWhite} alt="closeBtn" style={{width: '100%',marginRight: '-20px',marginTop: '3px'}}/></span>
         </div>
-        <div className="ecom-cartbody">
+        
             {basket?.length === 0 ? (  
-                <h3>Your Shopping Cart is Empty</h3> 
+                <div className="ecom-cartbody ecom-flex ecom-align-items-center ecom-justify-content-center ecom-flex-direction-column">
+                <h3>No Items in your Cart</h3>
+                <p>Your Favourite Items are just a click away</p> 
+                </div>
             ):(
-            <>
+         <div className="ecom-cartbody">
             <ul>
                 {
                     basket?.map(({id,imageURL,price,description,name,quantity}) => {
@@ -92,14 +95,12 @@ const addToBasket = (id,imageURL,price,description,name) => {
                         )
                     })
                  }
-            
-
-        </ul>        
-        </>
-    )
+        
+        </ul>
+        </div>    )
             }
         
-        </div>
+       
         
         <div className="ecom-cart-guarantee ecom-text-center ecom-flex ecom-align-items-center" style={{marginBottom:'10px'}}>
                 <div className="ecom-flex"><img src ={lowestPrice} alt="lowestPrice" style={{marginRight:'10px'}} /></div>

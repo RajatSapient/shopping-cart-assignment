@@ -14,6 +14,18 @@ const Products = () => {
     const[category,setCategory] = useState([])
     const [tabStatus, setTabStatus ] = useState(statess)
     const [{basket},dispatch] = useStateValue()
+    const [windowInnerWidth,setWindowInnerWidth] = useState(window.innerWidth)
+
+
+    useEffect(()=>{
+        const handleResize = () => {
+            setWindowInnerWidth(window.innerWidth)
+        }
+        window.addEventListener("resize",handleResize)
+        return ()=>{
+        window.removeEventListener("resize",handleResize)
+        }
+    },[])
 
 
 
@@ -91,13 +103,30 @@ const Products = () => {
                                 <div className ="productimg-wrapper ecom-flex">
                                     <img className ="hddg" src = {`${imageURL}`} alt= {name} />
                                 </div>
+
+                                {windowInnerWidth > 767 ?(
                                 <div className  = "product-desc">
                                     {description}
                                 </div>
+                                ): (
+                                <div className="ecom-flex ecom-flex-direction-column">
+                                    <div className  = "product-desc">
+                                        {description}
+                                    </div>   
+                                    <button className ="ecom-category-btn cursor-pointer button" style={{marginTop:"15px"}} onClick={() => addToBasket(id,imageURL,price,description,name)}>
+                                        {`Buy Now @ Rs ${price}` }
+                                    </button>
+                                </div>
+                                )}
                             </div>
                             <div className  = "ecom-category-btn-wrapper ecom-justify-content-between ecom-flex ecom-align-items-center">
-                                <span>MRP Rs: {price}</span>
-                                <button className ="ecom-category-btn cursor-pointer button" onClick={() => addToBasket(id,imageURL,price,description,name)}>Buy Now</button>
+                                {windowInnerWidth > 1024 ? (<span>MRP Rs: {price}</span>) : (<></>) }
+                                {windowInnerWidth < 768 ?( <></>) :(
+                                <button className ="ecom-category-btn cursor-pointer button" onClick={() => addToBasket(id,imageURL,price,description,name)}>
+                                  {windowInnerWidth > 1024 ?  "Buy Now" : `Buy Now @ Rs ${price}` }
+                                </button>
+                        )}
+
                             </div>
                         </div>
                         )

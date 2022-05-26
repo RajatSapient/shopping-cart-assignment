@@ -1,6 +1,10 @@
 import React,{useState,useEffect} from "react"
 import visibility from "../assets/images/visibility.png"
 import visibilityOpen from "../assets/images/visibilityopen.png"
+import loader from "../assets/images/loader.gif"
+import {useNavigate} from 'react-router-dom';
+
+
 
 
 const Register = () => {
@@ -11,13 +15,27 @@ const Register = () => {
     const [isSubmit,setIsSubmit] = useState(false)
     const [passwordType, setPasswordType] = useState("password");
     const [cPasswordType, setCPasswordType] = useState("password");
+    const [loading,setLoading] = useState(false)
+    const navigate = useNavigate();
 
+
+    useEffect(()=>{
+        console.log(formErrors)
+        if(Object.keys(formErrors).length === 0 && isSubmit){
+            navigate('/')
+            console.log(formValues)
+        }
+    },[formErrors])
 
     const handleSubmitForm = (event) =>{
         event.preventDefault()
         console.log("I'm Clicked")
+        setLoading(true)
         let formValidation =  validate(formValues)
-        setFormErrors(formValidation)
+        setTimeout(() =>{
+            setLoading(false)
+            setFormErrors(formValidation)
+        },2000)
         // if(formValidation.hasOwnProperty("userName") || formValidation.hasOwnProperty("email") || formValidation.hasOwnProperty("password")){
         //     return
         // }
@@ -27,11 +45,7 @@ const Register = () => {
         setIsSubmit(true)
     }
 
-    useEffect(()=>{
-        if(Object.keys(formErrors).length === 0 && isSubmit){
-            console.log(formValues)
-        }
-    },[formErrors])
+
 
     const handleChange = (e) =>{
         console.log(e.target)
@@ -101,12 +115,12 @@ const Register = () => {
 
     return (<>
         <div className="ecomsignin">
-    <div className="ecom-flex container ecom-align-items-center ecom-justify-content-between">
+    <div className="ecom-flex container ecom-align-items-center ecom-justify-content-between ecom-flexwrap-mob">
         <div className = "ecom-flex ecom-flex-direction-column ecomsignintext">
             <h2>Register</h2>
             <p className="ecomsignin-tagline">Get Access to Your Orders,Wishlist & Recommendations</p>
         </div>
-        <div className="ecom-flex ecom-flex-direction-column ecom-flex-50">
+        <div className="ecom-flex ecom-flex-direction-column ecom-flex-50 ecom-flex-100-mob">
             <form onSubmit={handleSubmitForm} className="ecom-flex ecom-flex-direction-column">
             <div className="ecom-mb-20">
                 <div className="field">
@@ -132,29 +146,33 @@ const Register = () => {
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.email}</p>
                 </div>
-            <div className="ecom-mb-20 ecom-position-relative">
-                <div className="field">
+            <div className="ecom-mb-20 ">
+                <div className="field ecom-position-relative">
                 <input type={passwordType} placeholder="Password" name="password" value={formValues.password} onChange = {handleChange}/>
-                    <label>Password</label>   
-                </div>
-                { passwordType==="password" ? 
+                    <label>Password</label> 
+                    { passwordType==="password" ? 
                      <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"> <img src={visibility} alt= "passwordEye" onClick={handleVisibility}/></div>: 
                      <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"><img src={visibilityOpen} alt= "passwordEye" onClick={handleVisibility}/></div>
-                 }
+                 }  
+                </div>
+
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.password}</p>
             </div>  
-            <div className="ecom-mb-20 ecom-position-relative">
-                <div className="field">
+            <div className="ecom-mb-20 ">
+                <div className="field ecom-position-relative">
                 <input type={cPasswordType}  placeholder="Confirm Password" name="confirmPassword" value={formValues.confirmPassword} onChange = {handleChange}/>
-                    <label>Confirm Password</label>   
-                </div>
-                { cPasswordType === "password" ? 
+                    <label>Confirm Password</label> 
+                    { cPasswordType === "password" ? 
                      <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"> <img src={visibility} alt= "passwordEye" onClick={handleCVisibility}/></div>: 
                      <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"><img src={visibilityOpen} alt= "passwordEye" onClick={handleCVisibility}/></div>
-                 }
+                 }  
+                </div>
+
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.confirmPassword}</p>
             </div>    
-                <button className="ecom-category-btn cursor-pointer">SignUp</button>
+            <button className="ecom-category-btn cursor-pointer" disabled = {loading}>
+                    SignUp {loading && <img src ={loader} alt="loader" style={{width:"20px",marginLeft:"10px"}}/>}
+                </button>
             </form>
         </div>
     </div>

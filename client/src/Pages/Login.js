@@ -84,12 +84,12 @@ const Login = () => {
 
     return (<>
         <div className="ecomsignin">
-    <div className="ecom-flex container ecom-align-items-center ecom-justify-content-between">
+    <div className="ecom-flex container ecom-align-items-center ecom-justify-content-between ecom-flexwrap-mob">
         <div className = "ecom-flex ecom-flex-direction-column ecomsignintext">
             <h2>Login</h2>
             <p className="ecomsignin-tagline">Get Access to Your Orders,Wishlist & Recommendations</p>
         </div>
-        <div className="ecom-flex ecom-flex-direction-column ecom-flex-50">
+        <div className="ecom-flex ecom-flex-direction-column ecom-flex-50 ecom-flex-100-mob">
             <form onSubmit={handleSubmitForm} className="ecom-flex ecom-flex-direction-column">
             <div className="ecom-mb-20">
                 <div className="field">
@@ -107,17 +107,19 @@ const Login = () => {
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.email}</p>
                 </div>
-            <div className="ecom-mb-20 ecom-position-relative">
-                <div className="field">
+            <div className="ecom-mb-20 ">
+                <div className="field ecom-position-relative">
                 <input type={passwordType} placeholder="Password" name="password" value={formValues.password} onChange = {handleChange}/>
 
                     <label>Password</label>   
-                </div>
-                { passwordType==="password" ? 
+                    { passwordType==="password" ? 
                      <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"> <img src={visibility} alt= "passwordEye" onClick={handleVisibility}/></div>: 
                      <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"><img src={visibilityOpen} alt= "passwordEye" onClick={handleVisibility}/></div>
                  }
+                </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.password}</p>
+ 
+              
             </div>    
                 <button className="ecom-category-btn cursor-pointer" disabled = {loading}>
                     Login {loading && <img src ={loader} alt="loader" style={{width:"20px",marginLeft:"10px"}}/>}
