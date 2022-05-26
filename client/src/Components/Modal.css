@@ -1,0 +1,31 @@
+.modalStyles{
+    position: fixed;
+    top: 101px;
+    right: 266px;
+    z-index:1000;
+    min-width: 500px;
+    max-width: 500px
+    
+}
+
+.modalOverlayStles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right:0;
+    bottom:0;
+    background-color: rgba(0,0,0,0.7);
+    z-index:1000;
+}
+
+@media only screen and (max-width: 1024px) {
+    .modalStyles {
+        top: 120px;
+        right: 0;
+        z-index: 1000;
+        min-width: unset;
+        max-width: unset;
+        width: 100%;
+        height: 100%;
+    }
+}
