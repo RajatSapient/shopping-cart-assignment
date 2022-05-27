@@ -1,20 +1,20 @@
 import React,{useState,useEffect} from "react"
 import { getProductList,getCategoryData } from "../Services/Services"
 import { useStateValue } from "../context/StateProvider"
-
+import downArrow from "../assets/images/downArrow.png"
 import { useLocation } from "react-router-dom"
 
 
 const Products = () => {
     const { state } = useLocation();
     const statess = state ? state: `all`
-    console.log(statess)
     const [products, setProducts] = useState([])
     const [filterProducts,setFilterProducts] = useState([])
     const[category,setCategory] = useState([])
     const [tabStatus, setTabStatus ] = useState(statess)
     const [{basket},dispatch] = useStateValue()
     const [windowInnerWidth,setWindowInnerWidth] = useState(window.innerWidth)
+    const[show,setShow]=useState(true);
 
 
     useEffect(()=>{
@@ -47,12 +47,10 @@ const Products = () => {
         setFilterProducts(products.filter((ele)=>{
             return ele.category === tabStatus
         }))
-        console.log("Tab Status is done")
     },[tabStatus,products])
 
     const fetchCategoryData = async() => {
         const response = await getCategoryData()
-        console.log(response)
         setCategory(response)
     }
 
@@ -72,23 +70,59 @@ const Products = () => {
                 description,
                 name}
         })
-        console.log("I'm Clicked Hahaaha")
     }
 
     return (<>
         <section className  = "ecom-productlisting ecom-flex ">
         <div className  = "container ecom-flex ecom-mob-flex-wrap">
-            <div className  = "ecom-product-category-sidebar" id="category-sidebar">
+            {windowInnerWidth < 768 ? 
+                    tabStatus === "all" ? 
+                     <div className={`ecom-categoriesHeader-mob ecom-justify-content-between ecom-flex ecom-w-100 ecom-align-items-center ${show ? '': 'ecom-mb-30'}`}>
+                        <h1>All Categories</h1> 
+                        <div style={{width:"20px"}}>
+                            <img src={downArrow} onClick={()=>setShow(!show)} alt="downArrow" style={{width:"100%" , height:"auto"}}/>
+                        </div>
+                     </div>
+                     :
+                     <div className={`ecom-categoriesHeader-mob ecom-justify-content-between ecom-flex ecom-w-100 ecom-align-items-center ${show ? '': 'ecom-mb-30'}`}>
+                    <h1>{ category.map(({name,id}) => {if(tabStatus === id) return name })}</h1> 
+                    <div style={{width:"20px"}}>
+                            <img src={downArrow} onClick={()=>setShow(!show)} alt="downArrow" style={{width:"100%" , height:"auto"}}/>
+                        </div>
+                    </div>
+            : 
+            null
+            }
+
+            {windowInnerWidth < 768 ? 
+                show ? <div className  = "ecom-product-category-sidebar" id="category-sidebar">
                 <ul>
-                    {category.map(({id,name}) =>{ 
+                    {category.map(({id,name} ) =>{ 
                         return (
-                            <li key={id} >
+                            <li key={id} onClick={()=>setShow(!show)}  className = {tabStatus === id ? "active active-mob cursor-pointer ": "cursor-pointer "}>
                                 <a className = {tabStatus === id ? "active cursor-pointer": "cursor-pointer "} onClick={ () => setTabStatus(id) }>{name}</a>
                              </li>)
                     })
                     }
                 </ul> 
             </div>
+            : null
+             :   
+
+             <div className  = "ecom-product-category-sidebar" id="category-sidebars">
+            <ul>
+                {category.map(({id,name} ) =>{ 
+                    return (
+                        <li key={id} onClick={()=>setShow(!show)} className = {tabStatus === id ? "active cursor-pointer": "cursor-pointer "}>
+                            <a className = {tabStatus === id ? "active cursor-pointer": "cursor-pointer "} onClick={ () => setTabStatus(id) }>{name}</a>
+                         </li>)
+                })
+                }
+            </ul> 
+        </div>
+
+            }
+       
             <div className ="ecom-productl ecom-flex">
             {filterProducts?.length === 0 ?(
             <div className="ecom-align-items-center ecom-justify-content-center ecom-flex-grow-1 ecom-flex"><h1>No Products Are available under this Category</h1></div>):( 

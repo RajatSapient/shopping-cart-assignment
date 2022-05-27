@@ -83,6 +83,9 @@ a{
 .ecom-mb-20{
     margin-bottom: 20px;
 }
+.ecom-mb-30{
+    margin-bottom: 30px;
+}
 .ecom-primary-color{
     color:#d10157
 }
@@ -606,6 +609,9 @@ button[disabled]{
         margin-right: 0;
         height: auto;
         margin-bottom: 20px;
+        border-radius: 0;
+        background-color: #d10157;
+        color: #fff;
     }
     .ecom-productlisting .ecom-productl {
         width: 100%;
@@ -653,6 +659,20 @@ button[disabled]{
     .ecomsignintext {
         margin-right: 0;
     }
+    .ecom-categoriesHeader-mob{
+        background: #d10157;
+        color: #fff;
+        padding: 10px 30px;
+    }
+    .ecom-productlisting .ecom-product-category-sidebar li.active.active-mob {
+        display: none;
+    }
+    .ecom-productlisting .ecom-product-category-sidebar li a {
+        padding: 10px;
+        border-bottom: 1px solid#fff;
+        color: #fff
+    }
+
 
 }
 @media only screen and (max-width: 540px) {
