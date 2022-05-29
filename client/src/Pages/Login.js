@@ -16,17 +16,14 @@ const Login = () => {
 
 
     useEffect(()=>{
-        console.log(formErrors)
         if(Object.keys(formErrors).length === 0 && isSubmit){
             navigate('/')
-            console.log(formValues)
         }
     },[formErrors])
 
 
     const handleSubmitForm = (event) =>{
         event.preventDefault()
-        console.log("I'm Clicked")
         setLoading(true)
         let formValidation =  validate(formValues)
         setTimeout(() =>{
@@ -72,7 +69,6 @@ const Login = () => {
     }
 
     const handleVisibility = () =>{
-        console.log("Clicked")
         if(passwordType==="password")
         {
          setPasswordType("text")
@@ -113,7 +109,9 @@ const Login = () => {
 
                     <label>Password</label>   
                     { passwordType==="password" ? 
-                     <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"> <img src={visibility} alt= "passwordEye" onClick={handleVisibility}/></div>: 
+                     <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"> 
+                     <img src={visibility} alt= "passwordEye" onClick={handleVisibility}/>
+                     </div>: 
                      <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"><img src={visibilityOpen} alt= "passwordEye" onClick={handleVisibility}/></div>
                  }
                 </div>

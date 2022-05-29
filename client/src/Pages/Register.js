@@ -20,35 +20,25 @@ const Register = () => {
 
 
     useEffect(()=>{
-        console.log(formErrors)
         if(Object.keys(formErrors).length === 0 && isSubmit){
             navigate('/')
-            console.log(formValues)
         }
     },[formErrors])
 
     const handleSubmitForm = (event) =>{
         event.preventDefault()
-        console.log("I'm Clicked")
         setLoading(true)
         let formValidation =  validate(formValues)
         setTimeout(() =>{
             setLoading(false)
             setFormErrors(formValidation)
         },2000)
-        // if(formValidation.hasOwnProperty("userName") || formValidation.hasOwnProperty("email") || formValidation.hasOwnProperty("password")){
-        //     return
-        // }
-        // setTimeout(() =>{
-        //     navigate('/')
-        // },2000)
         setIsSubmit(true)
     }
 
 
 
     const handleChange = (e) =>{
-        console.log(e.target)
         const {name,value} = e.target
         setFormValues({...formValues,[name]:value})
     }
@@ -92,7 +82,6 @@ const Register = () => {
     }
 
     const handleVisibility = () =>{
-        console.log("Clicked")
         if(passwordType==="password")
         {
          setPasswordType("text")
@@ -102,7 +91,6 @@ const Register = () => {
       }
 
       const handleCVisibility = () =>{
-        console.log("Clicked")
         if(cPasswordType==="password")
         {
          setCPasswordType("text")

@@ -1,8 +1,7 @@
 import React,{useState,useEffect} from "react"
 import { getCategoryData } from "../Services/Services"
-// import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom";
-import Slider from "../Components/Slider/Slider";
+import Slider from "../components/slider/slider.component";
 
 
 const Home = () =>{
@@ -12,13 +11,13 @@ const Home = () =>{
 
     const fetchCategoryData = async() => {
         const response = await getCategoryData()
-        console.log(response)
         setCategory(response)
     }
 
     useEffect(()=> {
         fetchCategoryData()
     },[])
+
 
 
     return(

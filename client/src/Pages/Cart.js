@@ -22,9 +22,7 @@ const Cart = ({onClose,setOpenModal}) => {
 const proceedToCheckOuts = async() =>{
     setLoader(true)
     const response = await proceedToCheckout()
-    console.log(response)
     if(response.response === "Success"){
-        console.log("Response is Ok")
         setTimeout(()=>{
             dispatch({
                 type: 'RESET_PRODUCTS',
@@ -37,7 +35,6 @@ const proceedToCheckOuts = async() =>{
 }
 
 const addToBasket = (id,imageURL,price,description,name) => {
-    console.log("I'm Clicked")
     dispatch({
         type: 'ADD_TO_BASKET',
         payload: {

@@ -14,7 +14,7 @@ const Products = () => {
     const [tabStatus, setTabStatus ] = useState(statess)
     const [{basket},dispatch] = useStateValue()
     const [windowInnerWidth,setWindowInnerWidth] = useState(window.innerWidth)
-    const[show,setShow]=useState(true);
+    const[show,setShow]=useState(false);
 
 
     useEffect(()=>{
@@ -31,7 +31,6 @@ const Products = () => {
 
     const fetchProductsData = async() => {
         const response = await getProductList()
-        console.log(response)
         setProducts(response)
         setFilterProducts(response)
     }
@@ -42,7 +41,6 @@ const Products = () => {
 
 
     useEffect(()=>{
-        console.log("Tab Status Changed")
         if(tabStatus === `all`) return
         setFilterProducts(products.filter((ele)=>{
             return ele.category === tabStatus
@@ -60,7 +58,6 @@ const Products = () => {
 
 
     const addToBasket = (id,imageURL,price,description,name) => {
-        console.log("I'm Clicked")
         dispatch({
             type: 'ADD_TO_BASKET',
             payload: {
@@ -80,14 +77,14 @@ const Products = () => {
                      <div className={`ecom-categoriesHeader-mob ecom-justify-content-between ecom-flex ecom-w-100 ecom-align-items-center ${show ? '': 'ecom-mb-30'}`}>
                         <h1>All Categories</h1> 
                         <div style={{width:"20px"}}>
-                            <img src={downArrow} onClick={()=>setShow(!show)} alt="downArrow" style={{width:"100%" , height:"auto"}}/>
+                            <img src={downArrow} onClick={()=>setShow(!show)} alt="downArrow" style={{width:"100%" , height:"auto"}} className={show ? 'arwup': 'arwdown' }/>
                         </div>
                      </div>
                      :
                      <div className={`ecom-categoriesHeader-mob ecom-justify-content-between ecom-flex ecom-w-100 ecom-align-items-center ${show ? '': 'ecom-mb-30'}`}>
                     <h1>{ category.map(({name,id}) => {if(tabStatus === id) return name })}</h1> 
                     <div style={{width:"20px"}}>
-                            <img src={downArrow} onClick={()=>setShow(!show)} alt="downArrow" style={{width:"100%" , height:"auto"}}/>
+                            <img src={downArrow} onClick={()=>setShow(!show)} alt="downArrow" style={{width:"100%" , height:"auto"}} className={show ? 'arwup': 'arwdown'}/>
                         </div>
                     </div>
             : 

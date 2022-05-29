@@ -6,7 +6,6 @@ export const getBasketTotal = (basket) =>
 basket?.reduce((amount,item) => item.price * item.quantity + amount,0)
 
 const reducer = (state,action) => {
-console.log(state,"State si")
     switch (action.type) {
     case 'ADD_TO_BASKET':
         let newBaskets = [...state.basket]
@@ -33,7 +32,6 @@ console.log(state,"State si")
   
     let newBasket = [...state.basket]
     const index = state.basket.findIndex((basketItem) => basketItem.id  === action.id)
-    console.log(index,"Index is")
    
     if(index >= 0){
         if(newBasket[index].quantity === 1){
