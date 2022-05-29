@@ -1,7 +1,7 @@
 import React,{useState} from "react"
 import { useStateValue } from "../context/StateProvider"
 import { getBasketTotal } from "../context/Reducers"
-import { proceedToCheckout } from "../Services/Services"
+import { proceedToCheckout } from "../services/services"
 import closeBtn from "../assets/images/closeBtn.svg"
 import closeBtnWhite from "../assets/images/closeBtnWhite.png"
 import lowestPrice from "../assets/images/lowest-price.png"
