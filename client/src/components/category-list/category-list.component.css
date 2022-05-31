@@ -1,0 +1,49 @@
+.ecom-home-categories{
+    padding: 50px 0;
+    background: #fff;
+    box-shadow: 0 0 8px #00000029;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+.ecom-home-categories-imgwrap{
+    max-width: 500px;
+    min-height: 300px;
+}
+.ecom-home-categories-imgwrap img{
+    width: 100%;
+    height: auto;
+}
+.ecom-home-categories .ecom-category-btn{
+    min-width: 100px;
+    min-height: 38px;
+    background: #d10157;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    padding: 0 20px;
+    font-weight: 600;
+}
+
+.ecom-home-categories .ecom-category-heading{
+    margin-bottom: 20px;
+}
+.ecom-home-categories .ecom-category-para{
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+.ecom-homecategories-wraper .ecom-home-categories:nth-child(even) .ecom-home-categories-order{
+    order: 2;
+}
+.ecom-homecategories-wraper .ecom-home-categories:last-child{
+    margin-bottom: 100px;
+}
+
+@media only screen and (max-width: 768px) {
+    .ecom-home-categories {
+        padding: 25px 0;
+    }
+    .ecom-home-categories-imgwrap {
+         min-height: unset;
+    }
+}

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
+import "./category-list.component.css"
 
 const CategoryList = (props) => {
     const { categoriesData } = props
@@ -10,14 +11,13 @@ const CategoryList = (props) => {
         <>
             {categoriesData?.length === 0 ? (
                 <div className="ecom-homecategories-wraper">No Data in Categories</div>) : (
-
-
                 <div className="ecom-homecategories-wraper">
 
-                    {categoriesData?.map(({ id, name, key, description, imageUrl }) => {
+                    {categoriesData?.map(({ id, name,key, description, imageUrl }) => {
+                        console.log(categoriesData)
                         return (
                             <>
-                                <div className="ecom-home-categories" key={name}>
+                                <div className="ecom-home-categories" key={id}>
                                     <div className="ecom-flex container ecom-align-items-center">
                                         <div className="ecom-flex ecom-flex-50 ecom-home-categories-order">
                                             <div className="ecom-home-categories-imgwrap">

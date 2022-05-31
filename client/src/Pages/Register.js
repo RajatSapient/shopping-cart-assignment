@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from "react"
 import visibility from "../assets/images/visibility.png"
 import visibilityOpen from "../assets/images/visibilityopen.png"
-import loader from "../assets/images/loader.gif"
 import {useNavigate} from 'react-router-dom';
-
+import { useStateValue } from "../contexts/StateProvider"
+import "../assets/css/sign-in.css"
 
 
 
@@ -15,24 +15,41 @@ const Register = () => {
     const [isSubmit,setIsSubmit] = useState(false)
     const [passwordType, setPasswordType] = useState("password");
     const [cPasswordType, setCPasswordType] = useState("password");
-    const [loading,setLoading] = useState(false)
+    const [disabled,setDisabled] = useState(true)
     const navigate = useNavigate();
+    const [{isLogin},dispatch] = useStateValue()
+    const {firstName,lastName,email,password,confirmPassword} = formValues
+
 
 
     useEffect(()=>{
         if(Object.keys(formErrors).length === 0 && isSubmit){
+            dispatch({
+                type: 'LOGIN_DATA',
+                payload: {
+                    userName:firstName,
+                    isLoggedIn: true    
+                }
+            })
             navigate('/')
         }
     },[formErrors])
 
+
+    useEffect(()=>{
+    
+    if(firstName === '' || lastName === '' || email === '' || password === '' || confirmPassword === '' ){
+        setDisabled(true)
+        return
+    }else{
+        setDisabled(false)
+    }
+    },[formValues])
+
     const handleSubmitForm = (event) =>{
         event.preventDefault()
-        setLoading(true)
         let formValidation =  validate(formValues)
-        setTimeout(() =>{
-            setLoading(false)
-            setFormErrors(formValidation)
-        },2000)
+        setFormErrors(formValidation)
         setIsSubmit(true)
     }
 
@@ -112,7 +129,7 @@ const Register = () => {
             <form onSubmit={handleSubmitForm} className="ecom-flex ecom-flex-direction-column">
             <div className="ecom-mb-20">
                 <div className="field">
-                    <input type="text" placeholder="Name" name="firstName" value={formValues.firstName}  onChange = {handleChange}/>
+                    <input type="text" placeholder="Name" name="firstName" value={firstName}  onChange = {handleChange}/>
                     <label>First Name</label>
                 
                 </div>
@@ -120,7 +137,7 @@ const Register = () => {
             </div>
             <div className="ecom-mb-20">
                 <div className="field">
-                    <input type="text" placeholder="Name" name="lastName" value={formValues.lastName}  onChange = {handleChange}/>
+                    <input type="text" placeholder="Name" name="lastName" value={lastName}  onChange = {handleChange}/>
                     <label>Last Name</label>
                 
                 </div>
@@ -128,7 +145,7 @@ const Register = () => {
             </div>
                 <div className="ecom-mb-20">
                 <div className="field">
-                    <input type="text" placeholder="Email" name="email" value={formValues.email} onChange = {handleChange}/>
+                    <input type="text" placeholder="Email" name="email" value={email} onChange = {handleChange}/>
                     <label>Email</label>
                    
                 </div>
@@ -136,7 +153,7 @@ const Register = () => {
                 </div>
             <div className="ecom-mb-20 ">
                 <div className="field ecom-position-relative">
-                <input type={passwordType} placeholder="Password" name="password" value={formValues.password} onChange = {handleChange}/>
+                <input type={passwordType} placeholder="Password" name="password" value={password} onChange = {handleChange}/>
                     <label>Password</label> 
                     { passwordType==="password" ? 
                      <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"> <img src={visibility} alt= "passwordEye" onClick={handleVisibility}/></div>: 
@@ -148,7 +165,7 @@ const Register = () => {
             </div>  
             <div className="ecom-mb-20 ">
                 <div className="field ecom-position-relative">
-                <input type={cPasswordType}  placeholder="Confirm Password" name="confirmPassword" value={formValues.confirmPassword} onChange = {handleChange}/>
+                <input type={cPasswordType}  placeholder="Confirm Password" name="confirmPassword" value={confirmPassword} onChange = {handleChange}/>
                     <label>Confirm Password</label> 
                     { cPasswordType === "password" ? 
                      <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"> <img src={visibility} alt= "passwordEye" onClick={handleCVisibility}/></div>: 
@@ -158,8 +175,8 @@ const Register = () => {
 
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.confirmPassword}</p>
             </div>    
-            <button className="ecom-category-btn cursor-pointer" disabled = {loading}>
-                    SignUp {loading && <img src ={loader} alt="loader" style={{width:"20px",marginLeft:"10px"}}/>}
+            <button className="ecom-category-btn cursor-pointer" disabled = {disabled}>
+                    SignUp 
                 </button>
             </form>
         </div>

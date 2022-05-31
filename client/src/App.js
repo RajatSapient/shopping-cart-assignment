@@ -7,11 +7,12 @@ import Login from './Pages/Login';
 import Header from './components/header/header.component';
 import Footer from './components/footer/footer.component'
 import Cart from './Pages/Cart';
-import { useStateValue } from "./context/StateProvider"
+import { useStateValue } from "./contexts/StateProvider"
 import { useEffect } from 'react';
 
 function App() {
-  const [{toastMsg},dispatch] = useStateValue()
+  const [{toastMsg,isLogin},dispatch] = useStateValue()
+
 
   useEffect(()=>{
     if(toastMsg){
@@ -21,7 +22,17 @@ function App() {
     }
   },[toastMsg])
 
+  useEffect(()=>{
+    if(Object.keys(isLogin).length === 0 && localStorage.getItem("UserData") !== ""){
+      let data = JSON.parse(localStorage.getItem("UserData"))
+      dispatch({
+        type: 'LOGIN_DATA',
+        payload: {...data }
+    })
+    }
+  },[])
 
+  
   return (
     <div className="App">
     <BrowserRouter>

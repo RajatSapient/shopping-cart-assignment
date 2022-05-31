@@ -1,4 +1,6 @@
 import React from 'react'
+import { ReadMore } from './read-more.component'
+import "./product-list.component.css"
 
 const ProductList = (props) => {
 
@@ -22,12 +24,12 @@ const ProductList = (props) => {
 
                                         {screenSize > 767 ? (
                                             <div className="product-desc">
-                                                {description}
+                                                <ReadMore>{description}</ReadMore>
                                             </div>
                                         ) : (
                                             <div className="ecom-flex ecom-flex-direction-column">
                                                 <div className="product-desc">
-                                                    {description}
+                                                     <ReadMore>{description}</ReadMore>
                                                 </div>
                                                 <button className="ecom-category-btn cursor-pointer button" style={{ marginTop: "15px" }} onClick={() => addToBasket(id, imageURL, price, description, name)}>
                                                     {`Buy Now @ Rs ${price}`}

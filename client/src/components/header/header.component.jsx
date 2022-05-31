@@ -1,20 +1,21 @@
 import React,{useState,useEffect} from "react"
-import { Link, useNavigate } from "react-router-dom";
-import { useStateValue } from "../../context/StateProvider";
+import { NavLink,Link, useNavigate } from "react-router-dom";
+import { useStateValue } from "../../contexts/StateProvider";
 import Cart from "../../Pages/Cart";
 import Modal from "../modal/modal.component";
 import Basket from "../../assets/images/cart.svg"
+import "./header.component.css"
 
 
 const Header = () =>{
 
-    const [{basket}] = useStateValue()
+    const [{basket,isLogin},dispatch] = useStateValue()
     const[isOpen,setIsOpen] = useState(false)
     const [toastMsg,setToastMsg] = useState(false)
     const [windowInnerWidth,setWindowInnerWidth] = useState(window.innerWidth)
     const navigate = useNavigate();
-
-
+    const {userName} = isLogin
+    
     useEffect(()=>{
         const handleResize = () => {
             setWindowInnerWidth(window.innerWidth)
@@ -40,6 +41,14 @@ const Header = () =>{
         }
     }
 
+    const signOut = () => {
+        dispatch({
+            type: "SIGN_OUT",
+        })
+    }
+
+   
+
     return(
         <>
      <header>
@@ -52,15 +61,16 @@ const Header = () =>{
             <div className = "ecom-flex ecom-flex-direction-column ecom-flex-grow-1">
             <div className = "ecom-mx-auto">
                 <div className = "ecom-flex header-auth ">
-                    <Link to="/login">SignIn</Link>
-                    <Link to="/register">Register</Link>
+                { userName ? <span className="cursor-pointer" onClick={signOut}>Sign Out</span>  : 
+                   <> <Link to="/login">SignIn</Link>
+                    <Link to="/register">Register</Link> </>}
                 </div>
             </div>
             <div className= "header-menu ecom-flex-direction-row ecom-flex ecom-align-items-center">
                 <nav className="menubar">
                     <ul> 
-                        <li className="crumb"><Link to="/">Home</Link></li>
-                        <li className="crumb"><Link to="/products">Products</Link></li>
+                        <li className="crumb"><NavLink activeClassName="active" to="/">Home</NavLink></li>
+                        <li className="crumb"><NavLink activeClassName="active" to="/products">Products</NavLink></li>
                     </ul>
                 </nav>
                 <div className = "header-cart-btn ecom-mx-auto">
@@ -75,10 +85,7 @@ const Header = () =>{
                         setOpenModal = {setIsOpen}
                         />
                     </Modal>
-                    ):(
-                        <></>
-                        // <Cart />  
-                    ) 
+                    ):null
                     }
                 </div>
             </div>

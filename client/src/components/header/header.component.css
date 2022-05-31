@@ -1,0 +1,54 @@
+header{
+    position: fixed;
+    width: 100%;
+    padding: 20px 0 12px 0;
+    background: #fff;
+    box-shadow: 0 0 4px #000029;
+    top: 0;
+    z-index: 10;
+
+}
+
+.ecom-header .header-menu{
+    margin: 0 0 0 20px;
+}
+.ecom-header .header-menu ul li{
+    display: inline-block;
+    margin: 0 15px;
+}
+.ecom-header .header-menu ul li a{
+    text-decoration: none;
+    color: #202124;
+    font-size: 22px;
+    font-weight: 600;
+}
+.ecom-header .header-menu ul li a.active {
+    color: #d10157;
+}
+.ecom-header .header-auth{
+    margin-bottom: 10px;
+}
+.ecom-header .header-auth a{
+    margin-right: 15px;
+}
+.ecom-header .header-auth a:last-child{
+    margin-right: 0;
+}
+
+
+@media only screen and (max-width: 768px) {
+   
+    .header-logo{
+        max-width: 114px;
+    }
+    .header-logo img{
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 540px) {
+
+    .ecom-header .header-menu .menubar {
+        display: none;
+    }
+}

@@ -1,8 +1,9 @@
 import React,{useState,useEffect} from "react"
 import {useNavigate} from 'react-router-dom';
-import loader from "../assets/images/loader.gif"
 import visibility from "../assets/images/visibility.png"
 import visibilityOpen from "../assets/images/visibilityopen.png"
+import { useStateValue } from "../contexts/StateProvider"
+import "../assets/css/sign-in.css"
 
 const Login = () => {
     
@@ -10,26 +11,43 @@ const Login = () => {
     const [formValues,setFormValues] = useState(initialValues)
     const [formErrors,setFormErrors] = useState({})
     const [isSubmit,setIsSubmit] = useState(false)
-    const [loading,setLoading] = useState(false)
     const [passwordType, setPasswordType] = useState("password");
     const navigate = useNavigate();
+    const [{isLoggedIn},dispatch] = useStateValue()
+    const {userName,email,password} = formValues
+    const [disabled,setDisabled] = useState(true)
+
 
 
     useEffect(()=>{
         if(Object.keys(formErrors).length === 0 && isSubmit){
+            dispatch({
+                type: 'LOGIN_DATA',
+                payload: {
+                    userName,
+                    isLoggedIn: true    
+                }
+            })
             navigate('/')
         }
     },[formErrors])
 
 
+    useEffect(()=>{
+    
+        if(userName === '' || email === '' || password === '' ){
+            setDisabled(true)
+            return
+        }else{
+            setDisabled(false)
+        }
+        },[formValues])
+
+
     const handleSubmitForm = (event) =>{
         event.preventDefault()
-        setLoading(true)
         let formValidation =  validate(formValues)
-        setTimeout(() =>{
-            setLoading(false)
-            setFormErrors(formValidation)
-        },2000)
+        setFormErrors(formValidation)
         setIsSubmit(true)
     }
 
@@ -119,8 +137,8 @@ const Login = () => {
  
               
             </div>    
-                <button className="ecom-category-btn cursor-pointer" disabled = {loading}>
-                    Login {loading && <img src ={loader} alt="loader" style={{width:"20px",marginLeft:"10px"}}/>}
+                <button className="ecom-category-btn cursor-pointer" disabled = {disabled}>
+                    Login
                 </button>
             </form>
         </div>
