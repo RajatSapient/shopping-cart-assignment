@@ -14,7 +14,6 @@ const CategoryList = (props) => {
                 <div className="ecom-homecategories-wraper">
 
                     {categoriesData?.map(({ id, name,key, description, imageUrl }) => {
-                        console.log(categoriesData)
                         return (
                             <>
                                 <div className="ecom-home-categories" key={id}>
@@ -28,7 +27,11 @@ const CategoryList = (props) => {
                                             <h2 className="ecom-category-heading">{name}</h2>
                                             <p className="ecom-category-para">{description}</p>
                                             <div className="ecom-category-btn-wrapper">
-                                                <button className="button ecom-category-btn cursor-pointer" onClick={(e) => navigate('/products', { state: id })}>{`Explore ${name}`}</button>
+                                                <button 
+                                                    className="button ecom-category-btn cursor-pointer" 
+                                                    onClick={(e) => navigate('/products', { state: id })}>
+                                                    {`Explore ${name}`}
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

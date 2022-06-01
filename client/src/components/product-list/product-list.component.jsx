@@ -12,8 +12,7 @@ const ProductList = (props) => {
                     <h1>No Products Are available under this Category</h1></div>) : (
                 <div className="ecom-product-category-plisting" id="ecom-productListing">
                     <div className="ecom-flex ecom-flexwrap">
-                        {productList?.map((ele) => {
-                            const { id, imageURL, price, description, name } = ele;
+                        {productList?.map(({ id, imageURL, price, description, name }) => {
                             return (
                                 <div key={id} className="ecom-productcard ecom-flex ecom-flex-direction-column ecom-text-center">
                                     <h2 className="ecom-productcart-title">{name}</h2>

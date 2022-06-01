@@ -61,7 +61,7 @@ const reducer = (state,action) => {
     
     case 'SIGN_OUT':
         let clearLoginData ={}
-        localStorage.removeItem("UserData" ,JSON.stringify({...action.payload}))
+        localStorage.removeItem("UserData")
         return {...state, isLogin: clearLoginData }
 
     default:

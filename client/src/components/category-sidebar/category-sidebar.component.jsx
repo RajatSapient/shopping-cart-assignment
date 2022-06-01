@@ -23,7 +23,7 @@ const CategorySidebar = (props) => {
                     </div>
                     :
                     <div className={`ecom-categoriesHeader-mob ecom-justify-content-between ecom-flex ecom-w-100 ecom-align-items-center ${show ? '' : 'ecom-mb-30'}`}>
-                        <h1>{categories.map(({ name, id }) => { if (tabStatus === id) return name })}</h1>
+                        <h1>{categories.find(({ name, id }) => tabStatus === id  )?.name   }</h1>
                         <div style={{ width: "20px" }}>
                             <img
                                 src={downArrow}
@@ -47,12 +47,12 @@ const CategorySidebar = (props) => {
                                     onClick={() => setShow(!show)}
                                     className={tabStatus === id ? "active active-mob cursor-pointer " : "cursor-pointer "}
                                 >
-                                    <p
+                                    <button
                                         className={tabStatus === id ? "active cursor-pointer" : "cursor-pointer "}
                                         onClick={() => setTabStatus(id)}
                                     >
                                         {name}
-                                    </p>
+                                    </button>
                                 </li>)
                         })
                         }
@@ -70,12 +70,12 @@ const CategorySidebar = (props) => {
                                     onClick={() => setShow(!show)} 
                                     className={tabStatus === id ? "active cursor-pointer" : "cursor-pointer "}
                                 >
-                                    <p  
+                                    <button
                                         className={tabStatus === id ? "active cursor-pointer" : "cursor-pointer "} 
                                         onClick={() => setTabStatus(id)}
                                     >
                                             {name}
-                                    </p>
+                                    </button>
                                 </li>)
                         })
                         }

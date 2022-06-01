@@ -1,5 +1,4 @@
 .ecom-productlisting .ecom-productcard {
-    /* border: 1px solid#dedede; */
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -52,6 +51,28 @@
     padding: 0 20px;
     font-weight: 600;
 }
+.ecom-productlisting .ecom-category-btn.button{
+    position: relative;
+    /* background: black; */
+  color: white;
+    cursor:pointer;
+    user-select:none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    z-index: 1;
+  }
+  
+  .ecom-productlisting .ecom-category-btn.button:hover {
+    transition-duration: 0.1s;
+    background-color: #3A3A3A;
+  }
+  
+  .ecom-productlisting .ecom-category-btn.button:active {
+    top: 1px;
+  }
 .ecom-productlisting .ecom-productl{
     width: 82%;
     margin-bottom: 100px;

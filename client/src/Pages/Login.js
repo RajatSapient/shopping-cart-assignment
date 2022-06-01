@@ -13,11 +13,9 @@ const Login = () => {
     const [isSubmit,setIsSubmit] = useState(false)
     const [passwordType, setPasswordType] = useState("password");
     const navigate = useNavigate();
-    const [{isLoggedIn},dispatch] = useStateValue()
+    const [{},dispatch] = useStateValue()
     const {userName,email,password} = formValues
     const [disabled,setDisabled] = useState(true)
-
-
 
     useEffect(()=>{
         if(Object.keys(formErrors).length === 0 && isSubmit){
@@ -37,7 +35,6 @@ const Login = () => {
     
         if(userName === '' || email === '' || password === '' ){
             setDisabled(true)
-            return
         }else{
             setDisabled(false)
         }
@@ -86,13 +83,18 @@ const Login = () => {
         return errors
     }
 
-    const handleVisibility = () =>{
+    const handleVisibility = (event) =>{
+        event.preventDefault()
         if(passwordType==="password")
         {
          setPasswordType("text")
          return;
         }
         setPasswordType("password")
+      }
+
+      const handleBlur = () =>{
+        
       }
     
 
@@ -104,40 +106,42 @@ const Login = () => {
             <p className="ecomsignin-tagline">Get Access to Your Orders,Wishlist & Recommendations</p>
         </div>
         <div className="ecom-flex ecom-flex-direction-column ecom-flex-50 ecom-flex-100-mob">
-            <form onSubmit={handleSubmitForm} className="ecom-flex ecom-flex-direction-column">
+            <form  className="ecom-flex ecom-flex-direction-column">
             <div className="ecom-mb-20">
                 <div className="field">
-                    <input type="text" placeholder="Name" name="userName" value={formValues.userName}  onChange = {handleChange}/>
-                    <label>Name</label>
+                    <input type="text" id= "name" placeholder="Name" name="userName" value={formValues.userName}  onChange = {handleChange}/>
+                    <label for="name">Name</label>
                 
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.userName}</p>
                 </div>
                 <div className="ecom-mb-20">
                 <div className="field">
-                    <input type="text" placeholder="Email" name="email" value={formValues.email} onChange = {handleChange}/>
-                    <label>Email</label>
+                    <input type="text" id= "email" placeholder="Email" name="email" value={formValues.email} onChange = {handleChange} onBlur ={handleBlur}/>
+                    <label for="email">Email</label>
                    
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.email}</p>
                 </div>
             <div className="ecom-mb-20 ">
                 <div className="field ecom-position-relative">
-                <input type={passwordType} placeholder="Password" name="password" value={formValues.password} onChange = {handleChange}/>
+                <input type={passwordType} id="password" placeholder="Password" name="password" value={formValues.password} onChange = {handleChange}/>
 
-                    <label>Password</label>   
+                    <label for="password">Password</label>   
                     { passwordType==="password" ? 
-                     <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"> 
-                     <img src={visibility} alt= "passwordEye" onClick={handleVisibility}/>
-                     </div>: 
-                     <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"><img src={visibilityOpen} alt= "passwordEye" onClick={handleVisibility}/></div>
+                     <button className="ecom-position-absolute ecom-eye-positioning cursor-pointer" onClick={handleVisibility}> 
+                        <img src={visibility} alt= "passwordEye" />
+                     </button>: 
+                     <button className="ecom-position-absolute ecom-eye-positioning cursor-pointer" onClick={handleVisibility}>
+                         <img src={visibilityOpen} alt= "passwordEye" />
+                     </button>
                  }
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.password}</p>
  
               
             </div>    
-                <button className="ecom-category-btn cursor-pointer" disabled = {disabled}>
+                <button type="submit" onSubmit={handleSubmitForm} className="ecom-category-btn cursor-pointer" disabled = {disabled}>
                     Login
                 </button>
             </form>

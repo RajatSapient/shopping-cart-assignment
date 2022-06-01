@@ -57,8 +57,7 @@ const Slider = () => {
              return(
                  <div
                   className={current === index+1 ? "dot active cursor-pointer" :"dot" }
-                  onClick = {()=> moveDot(index+1)}
-                  
+                  onClick = {()=> moveDot(index+1)}                 
                   >
                   </div>
              )

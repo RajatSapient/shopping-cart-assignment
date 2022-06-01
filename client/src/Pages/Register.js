@@ -98,7 +98,8 @@ const Register = () => {
         return errors
     }
 
-    const handleVisibility = () =>{
+    const handleVisibility = (event) =>{
+        event.preventDefault()
         if(passwordType==="password")
         {
          setPasswordType("text")
@@ -107,7 +108,8 @@ const Register = () => {
         setPasswordType("password")
       }
 
-      const handleCVisibility = () =>{
+      const handleCVisibility = (event) =>{
+          event.preventDefault()
         if(cPasswordType==="password")
         {
          setCPasswordType("text")
@@ -126,38 +128,42 @@ const Register = () => {
             <p className="ecomsignin-tagline">Get Access to Your Orders,Wishlist & Recommendations</p>
         </div>
         <div className="ecom-flex ecom-flex-direction-column ecom-flex-50 ecom-flex-100-mob">
-            <form onSubmit={handleSubmitForm} className="ecom-flex ecom-flex-direction-column">
+            <form className="ecom-flex ecom-flex-direction-column">
             <div className="ecom-mb-20">
                 <div className="field">
-                    <input type="text" placeholder="Name" name="firstName" value={firstName}  onChange = {handleChange}/>
-                    <label>First Name</label>
+                    <input type="text" id="firstName" placeholder="Name" name="firstName" value={firstName}  onChange = {handleChange}/>
+                    <label for = "firstName">First Name</label>
                 
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.firstName}</p>
             </div>
             <div className="ecom-mb-20">
                 <div className="field">
-                    <input type="text" placeholder="Name" name="lastName" value={lastName}  onChange = {handleChange}/>
-                    <label>Last Name</label>
+                    <input type="text" id="lastName" placeholder="Name" name="lastName" value={lastName}  onChange = {handleChange}/>
+                    <label for="lastName">Last Name</label>
                 
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.lastName}</p>
             </div>
                 <div className="ecom-mb-20">
                 <div className="field">
-                    <input type="text" placeholder="Email" name="email" value={email} onChange = {handleChange}/>
-                    <label>Email</label>
+                    <input type="text" id="email" placeholder="Email" name="email" value={email} onChange = {handleChange}/>
+                    <label for= "email">Email</label>
                    
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.email}</p>
                 </div>
             <div className="ecom-mb-20 ">
                 <div className="field ecom-position-relative">
-                <input type={passwordType} placeholder="Password" name="password" value={password} onChange = {handleChange}/>
-                    <label>Password</label> 
+                <input type={passwordType} id="password" placeholder="Password" name="password" value={password} onChange = {handleChange}/>
+                    <label for="password">Password</label> 
                     { passwordType==="password" ? 
-                     <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"> <img src={visibility} alt= "passwordEye" onClick={handleVisibility}/></div>: 
-                     <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"><img src={visibilityOpen} alt= "passwordEye" onClick={handleVisibility}/></div>
+                     <button className="ecom-position-absolute ecom-eye-positioning cursor-pointer" onClick={handleVisibility}> 
+                        <img src={visibility} alt= "passwordEye" />
+                     </button>: 
+                     <button className="ecom-position-absolute ecom-eye-positioning cursor-pointer" onClick={handleVisibility}>
+                         <img src={visibilityOpen} alt= "passwordEye" />
+                    </button>
                  }  
                 </div>
 
@@ -165,17 +171,21 @@ const Register = () => {
             </div>  
             <div className="ecom-mb-20 ">
                 <div className="field ecom-position-relative">
-                <input type={cPasswordType}  placeholder="Confirm Password" name="confirmPassword" value={confirmPassword} onChange = {handleChange}/>
-                    <label>Confirm Password</label> 
+                <input type={cPasswordType} id="confirmPassword" placeholder="Confirm Password" name="confirmPassword" value={confirmPassword} onChange = {handleChange}/>
+                    <label for ="confirmPassword">Confirm Password</label> 
                     { cPasswordType === "password" ? 
-                     <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"> <img src={visibility} alt= "passwordEye" onClick={handleCVisibility}/></div>: 
-                     <div className="ecom-position-absolute ecom-eye-positioning cursor-pointer"><img src={visibilityOpen} alt= "passwordEye" onClick={handleCVisibility}/></div>
+                     <button className="ecom-position-absolute ecom-eye-positioning cursor-pointer"  onClick={handleCVisibility}> 
+                        <img src={visibility} alt= "passwordEye"/>
+                     </button>: 
+                     <button className="ecom-position-absolute ecom-eye-positioning cursor-pointer"  onClick={handleCVisibility}>
+                         <img src={visibilityOpen} alt= "passwordEye"/>
+                    </button>
                  }  
                 </div>
 
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.confirmPassword}</p>
             </div>    
-            <button className="ecom-category-btn cursor-pointer" disabled = {disabled}>
+            <button type="submit" onSubmit={handleSubmitForm} className="ecom-category-btn cursor-pointer" disabled = {disabled}>
                     SignUp 
                 </button>
             </form>

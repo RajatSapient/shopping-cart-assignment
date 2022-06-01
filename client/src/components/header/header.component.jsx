@@ -10,7 +10,7 @@ import "./header.component.css"
 const Header = () =>{
 
     const [{basket,isLogin},dispatch] = useStateValue()
-    const[isOpen,setIsOpen] = useState(false)
+    const [isOpen,setIsOpen] = useState(false)
     const [toastMsg,setToastMsg] = useState(false)
     const [windowInnerWidth,setWindowInnerWidth] = useState(window.innerWidth)
     const navigate = useNavigate();
@@ -47,21 +47,19 @@ const Header = () =>{
         })
     }
 
-   
-
     return(
         <>
      <header>
         <div className = "container">
             <div className = " ecom-flex ecom-header ecom-align-items-center" >
             <div className = "header-logo">
-            <Link to="/"><img src = "../static/images/logo.png" alt="logo" /></Link>
+            <Link to="/"><img src = "../static/images/logo.png" alt="sabka-bazaar-logo" /></Link>
         
             </div>
             <div className = "ecom-flex ecom-flex-direction-column ecom-flex-grow-1">
             <div className = "ecom-mx-auto">
                 <div className = "ecom-flex header-auth ">
-                { userName ? <span className="cursor-pointer" onClick={signOut}>Sign Out</span>  : 
+                { userName ? <span className="cursor-pointer" onClick={signOut}>Sign Out</span> : 
                    <> <Link to="/login">SignIn</Link>
                     <Link to="/register">Register</Link> </>}
                 </div>

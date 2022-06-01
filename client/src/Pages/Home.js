@@ -41,9 +41,8 @@ const Home = () => {
     return (
         <>
             <div className="ecom-hero-banner">
-            <Slider dots={true} >{renderSlides()}</Slider>
+                <Slider dots={true} >{renderSlides()}</Slider>
             </div>
-
             <CategoryList categoriesData={categories} />
 
         </>

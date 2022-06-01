@@ -106,8 +106,10 @@
       margin-top: 5px;
   }
   .ecom-eye-positioning{
-      top: 50%;
-      right: 15px;
+    top: 50%;
+    right: 0;
+    border: 0;
+    background: #fff;
   }
   .ecom-eye-positioning img{
       width: 27px;

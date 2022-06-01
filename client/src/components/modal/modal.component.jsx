@@ -8,7 +8,6 @@ export default function Modal({open,children,onClose}) {
         <>
     <div className="modalOverlayStles">
     <div className="modalStyles">
-        {/* <button onClick={onClose}>Close Modal</button> */}
         {children}
     </div>
     </div>
