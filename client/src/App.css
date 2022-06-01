@@ -166,7 +166,9 @@ button:focus-visible {
 .ecom-inline-flex{
     display: inline-flex;
 }
-
+.ecom-font-bold{
+    font-weight: 700;
+}
 
 /******************** Home Hero Banner ***************************/
 .ecom-hero-banner {

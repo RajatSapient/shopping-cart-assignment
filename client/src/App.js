@@ -10,7 +10,7 @@ import Cart from './Pages/Cart';
 import { useStateValue } from "./contexts/StateProvider"
 import { useEffect } from 'react';
 import ErrorBoundary from './components/error-boundary/error-boundary.component';
-import ProtectedRoutes from './components/protected-routes/protected-routes.component';
+// import ProtectedRoutes from './components/protected-routes/protected-routes.component';
 import NotFound from './components/not-found/not-found.component';
 
 function App() {
@@ -45,10 +45,10 @@ function App() {
        
           <Route exact path="/" element={<Home />}></Route>
           <Route exact path="/Products" element={<Products />}></Route>
-          <Route element={<ProtectedRoutes />}> 
+          {/* <Route element={<ProtectedRoutes />}>  */}
             <Route exact path="/register" element={<Register />}></Route>
             <Route exact path="/login" element={<Login />}></Route>
-          </Route> 
+          {/* </Route>  */}
             <Route exact path="/cart" element={<Cart />}></Route>
             <Route path="*" element={<NotFound />} />
       </Routes>

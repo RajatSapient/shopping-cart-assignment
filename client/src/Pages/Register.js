@@ -4,6 +4,7 @@ import visibilityOpen from "../assets/images/visibilityopen.png"
 import {useNavigate} from 'react-router-dom';
 import { useStateValue } from "../contexts/StateProvider"
 import "../assets/css/sign-in.css"
+import useFullPageLoader from "../hooks/useFullPage-Loader";
 
 
 
@@ -19,6 +20,7 @@ const Register = () => {
     const navigate = useNavigate();
     const [{isLogin},dispatch] = useStateValue()
     const {firstName,lastName,email,password,confirmPassword} = formValues
+    const [loader,showLoader,hideLoader] = useFullPageLoader()
 
 
 
@@ -31,7 +33,11 @@ const Register = () => {
                     isLoggedIn: true    
                 }
             })
-            navigate('/')
+            showLoader()
+            setTimeout(() => {
+                hideLoader()
+                navigate('/')                   
+            }, 3000);
         }
     },[formErrors])
 
@@ -132,7 +138,7 @@ const Register = () => {
             <div className="ecom-mb-20">
                 <div className="field">
                     <input type="text" id="firstName" placeholder="Name" name="firstName" value={firstName}  onChange = {handleChange}/>
-                    <label for = "firstName">First Name</label>
+                    <label htmlFor= "firstName">First Name</label>
                 
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.firstName}</p>
@@ -140,7 +146,7 @@ const Register = () => {
             <div className="ecom-mb-20">
                 <div className="field">
                     <input type="text" id="lastName" placeholder="Name" name="lastName" value={lastName}  onChange = {handleChange}/>
-                    <label for="lastName">Last Name</label>
+                    <label htmlFor="lastName">Last Name</label>
                 
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.lastName}</p>
@@ -148,7 +154,7 @@ const Register = () => {
                 <div className="ecom-mb-20">
                 <div className="field">
                     <input type="text" id="email" placeholder="Email" name="email" value={email} onChange = {handleChange}/>
-                    <label for= "email">Email</label>
+                    <label htmlFor= "email">Email</label>
                    
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.email}</p>
@@ -156,7 +162,7 @@ const Register = () => {
             <div className="ecom-mb-20 ">
                 <div className="field ecom-position-relative">
                 <input type={passwordType} id="password" placeholder="Password" name="password" value={password} onChange = {handleChange}/>
-                    <label for="password">Password</label> 
+                    <label htmlFor="password">Password</label> 
                     { passwordType==="password" ? 
                      <button className="ecom-position-absolute ecom-eye-positioning cursor-pointer" onClick={handleVisibility}> 
                         <img src={visibility} alt= "passwordEye" />
@@ -172,7 +178,7 @@ const Register = () => {
             <div className="ecom-mb-20 ">
                 <div className="field ecom-position-relative">
                 <input type={cPasswordType} id="confirmPassword" placeholder="Confirm Password" name="confirmPassword" value={confirmPassword} onChange = {handleChange}/>
-                    <label for ="confirmPassword">Confirm Password</label> 
+                    <label htmlFor ="confirmPassword">Confirm Password</label> 
                     { cPasswordType === "password" ? 
                      <button className="ecom-position-absolute ecom-eye-positioning cursor-pointer"  onClick={handleCVisibility}> 
                         <img src={visibility} alt= "passwordEye"/>
@@ -185,12 +191,13 @@ const Register = () => {
 
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.confirmPassword}</p>
             </div>    
-            <button type="submit" onSubmit={handleSubmitForm} className="ecom-category-btn cursor-pointer" disabled = {disabled}>
+            <button type="submit" onClick={handleSubmitForm} className="ecom-category-btn cursor-pointer" disabled = {disabled}>
                     SignUp 
                 </button>
             </form>
         </div>
     </div>
+    {loader}
 </div>
     </>)
 }

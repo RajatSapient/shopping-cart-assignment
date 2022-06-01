@@ -4,6 +4,7 @@ import visibility from "../assets/images/visibility.png"
 import visibilityOpen from "../assets/images/visibilityopen.png"
 import { useStateValue } from "../contexts/StateProvider"
 import "../assets/css/sign-in.css"
+import useFullPageLoader from "../hooks/useFullPage-Loader";
 
 const Login = () => {
     
@@ -16,6 +17,7 @@ const Login = () => {
     const [{},dispatch] = useStateValue()
     const {userName,email,password} = formValues
     const [disabled,setDisabled] = useState(true)
+    const [loader,showLoader,hideLoader] = useFullPageLoader()
 
     useEffect(()=>{
         if(Object.keys(formErrors).length === 0 && isSubmit){
@@ -26,7 +28,12 @@ const Login = () => {
                     isLoggedIn: true    
                 }
             })
-            navigate('/')
+            showLoader()
+            setTimeout(() => {
+                hideLoader()
+                navigate('/')                   
+            }, 3000);
+           
         }
     },[formErrors])
 
@@ -42,6 +49,7 @@ const Login = () => {
 
 
     const handleSubmitForm = (event) =>{
+        
         event.preventDefault()
         let formValidation =  validate(formValues)
         setFormErrors(formValidation)
@@ -93,8 +101,14 @@ const Login = () => {
         setPasswordType("password")
       }
 
-      const handleBlur = () =>{
-        
+      const handleBlur = (e) =>{
+        const {name,value} = e.target
+        const errors = {}
+        if(!value.email){
+            errors.userName = "Username is required *"
+        }
+        console.log("Hello Blurre")
+        return errors
       }
     
 
@@ -110,7 +124,7 @@ const Login = () => {
             <div className="ecom-mb-20">
                 <div className="field">
                     <input type="text" id= "name" placeholder="Name" name="userName" value={formValues.userName}  onChange = {handleChange}/>
-                    <label for="name">Name</label>
+                    <label htmlFor="name">Name</label>
                 
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.userName}</p>
@@ -118,7 +132,7 @@ const Login = () => {
                 <div className="ecom-mb-20">
                 <div className="field">
                     <input type="text" id= "email" placeholder="Email" name="email" value={formValues.email} onChange = {handleChange} onBlur ={handleBlur}/>
-                    <label for="email">Email</label>
+                    <label htmlFor="email">Email</label>
                    
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.email}</p>
@@ -127,7 +141,7 @@ const Login = () => {
                 <div className="field ecom-position-relative">
                 <input type={passwordType} id="password" placeholder="Password" name="password" value={formValues.password} onChange = {handleChange}/>
 
-                    <label for="password">Password</label>   
+                    <label htmlFor="password">Password</label>   
                     { passwordType==="password" ? 
                      <button className="ecom-position-absolute ecom-eye-positioning cursor-pointer" onClick={handleVisibility}> 
                         <img src={visibility} alt= "passwordEye" />
@@ -141,12 +155,13 @@ const Login = () => {
  
               
             </div>    
-                <button type="submit" onSubmit={handleSubmitForm} className="ecom-category-btn cursor-pointer" disabled = {disabled}>
+                <button type="submit" onClick={handleSubmitForm} className="ecom-category-btn cursor-pointer" disabled = {disabled}>
                     Login
                 </button>
             </form>
         </div>
     </div>
+    {loader}
 </div>
     </>)
 }

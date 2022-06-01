@@ -101,10 +101,21 @@ const Cart = ({onClose,setOpenModal}) => {
 
         <div className="ecom-cartfooter ecom-text-center">
             <p>Promo Code can be applied on Promo Page</p>
+            {basket?.length === 0 ? 
+            <button 
+            className="button ecom-proceed-checkout ecom-flex ecom-justify-center ecom-align-items-center cursor-pointer" 
+            onClick={onClose}>
+                <p className ="ecom-font-bold ecom-w-100">Continue Shopping</p>
+                {/* <span>{`Total: Rs ${getBasketTotal(basket)}`}</span> */}
+             </button>
+            
+            : 
+            
             <button className="button ecom-proceed-checkout ecom-flex ecom-justify-content-between ecom-align-items-center cursor-pointer" onClick={proceedToCheckOuts}>
-                <span>Proceed To Checkout</span>
-                <span>{`Total: Rs ${getBasketTotal(basket)}`}</span>
+                <span className ="ecom-font-bold ">Proceed To Checkout</span>
+                <span className ="ecom-font-bold ">{`Total: Rs ${getBasketTotal(basket)}`}</span>
             </button>
+            }
         </div>
     </div>    
     )
