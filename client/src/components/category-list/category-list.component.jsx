@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
 import "./category-list.component.css"
+import NoImg from "../../assets/images/noimg.png"
 
 const CategoryList = (props) => {
     const { categoriesData } = props
@@ -20,7 +21,7 @@ const CategoryList = (props) => {
                                     <div className="ecom-flex container ecom-align-items-center">
                                         <div className="ecom-flex ecom-flex-50 ecom-home-categories-order">
                                             <div className="ecom-home-categories-imgwrap">
-                                                <img src={imageUrl} alt={key} />
+                                                { imageUrl ?<img src={imageUrl} alt={key} /> : <img src={NoImg} alt={key} /> }
                                             </div>
                                         </div>
                                         <div className="ecom-flex ecom-flex-50 ecom-flex-direction-column ecom-text-center">

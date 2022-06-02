@@ -31,21 +31,34 @@ const Login = () => {
             showLoader()
             setTimeout(() => {
                 hideLoader()
+                localStorage.removeItem('userInputs')
                 navigate('/')                   
             }, 3000);
            
         }
     },[formErrors])
 
+    useEffect(()=>{
+        const userData= JSON.parse((localStorage.getItem('userInputs')))
+        if(localStorage.getItem('userInputs') ){
+            setFormValues({...userData})
+        }
+        else{
+            setFormValues({...formValues})
+        }
+    },[])  
 
     useEffect(()=>{
-    
+        localStorage.setItem('userInputs',JSON.stringify(formValues))
+
         if(userName === '' || email === '' || password === '' ){
             setDisabled(true)
         }else{
             setDisabled(false)
         }
         },[formValues])
+
+
 
 
     const handleSubmitForm = (event) =>{
@@ -58,7 +71,7 @@ const Login = () => {
 
     const handleChange = (e) =>{
         const {name,value} = e.target
-        setFormValues({...formValues,[name]:value})
+        setFormValues({...formValues,[name]:value })
     }
 
     const validate = (values) =>{
@@ -101,15 +114,6 @@ const Login = () => {
         setPasswordType("password")
       }
 
-      const handleBlur = (e) =>{
-        const {name,value} = e.target
-        const errors = {}
-        if(!value.email){
-            errors.userName = "Username is required *"
-        }
-        console.log("Hello Blurre")
-        return errors
-      }
     
 
     return (<>
@@ -131,7 +135,7 @@ const Login = () => {
                 </div>
                 <div className="ecom-mb-20">
                 <div className="field">
-                    <input type="text" id= "email" placeholder="Email" name="email" value={formValues.email} onChange = {handleChange} onBlur ={handleBlur}/>
+                    <input type="text" id= "email" placeholder="Email" name="email" value={formValues.email} onChange = {handleChange} />
                     <label htmlFor="email">Email</label>
                    
                 </div>

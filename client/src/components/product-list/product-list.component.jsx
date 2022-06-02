@@ -1,8 +1,15 @@
-import React from 'react'
-import { ReadMore } from './read-more.component'
+import React,{useEffect} from 'react'
+import { ReadMore } from './read-more.component.jsx'
 import "./product-list.component.css"
 
 const ProductList = (props) => {
+
+useEffect(()=>{
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+    });
+},[])
 
     const { productList, screenSize, addToBasket } = props
     return (

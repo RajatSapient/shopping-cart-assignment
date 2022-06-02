@@ -195,8 +195,13 @@ button:focus-visible {
 .ecom-hero-banner .slick-prev, .ecom-hero-banner .slick-next {
     width: 50px;
     height: 50px;
-    z-index: 9999;
+    z-index: 9;
 }
+.ecom-hero-banner .slick-prev:hover:before,
+.ecom-hero-banner .slick-next:hover:before {
+    color: #d10157;
+}
+
 .ecom-hero-banner .slick-prev:before, .ecom-hero-banner .slick-next:before {
     color: #dedede;
     font-size: 53px;

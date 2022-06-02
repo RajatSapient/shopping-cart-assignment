@@ -34,7 +34,21 @@ header{
 .ecom-header .header-auth a:last-child{
     margin-right: 0;
 }
-
+.ecom-signout-btn{
+    color: #d10157;
+    font-size: 16px;
+    min-width: 100px;
+    min-height: 38px;
+    background-color: transparent;
+    border: 0;
+    font-weight: 600;
+}
+.ecom-header .header-menu ul li a:hover {
+    color: #d10157;
+}
+.ecom-header .header-auth a:hover {
+    color: #d10157;
+}
 
 @media only screen and (max-width: 768px) {
    

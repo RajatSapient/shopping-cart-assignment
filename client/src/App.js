@@ -1,17 +1,20 @@
+import { useEffect,lazy,Suspense } from 'react';
 import './App.css';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
-import Home from './Pages/Home';
-import Products from './Pages/Products'
-import Register from './Pages/Register';
-import Login from './Pages/Login';
 import Header from './components/header/header.component';
 import Footer from './components/footer/footer.component'
-import Cart from './Pages/Cart';
 import { useStateValue } from "./contexts/StateProvider"
-import { useEffect } from 'react';
 import ErrorBoundary from './components/error-boundary/error-boundary.component';
-// import ProtectedRoutes from './components/protected-routes/protected-routes.component';
 import NotFound from './components/not-found/not-found.component';
+import FullPageLoader from './components/full-page-loading-spinner/full-page-loading-spinner.component';
+
+const Home= lazy(() => import('./Pages/Home'));
+const Products = lazy(() => import('./Pages/Products'));
+const Register = lazy(() => import('./Pages/Register'));
+const Login = lazy(() => import('./Pages/Login'));
+const Cart = lazy(() => import('./Pages/Cart'));
+
+
 
 function App() {
   const [{toastMsg,isLogin},dispatch] = useStateValue()
@@ -35,14 +38,12 @@ function App() {
     }
   },[])
   return (
-   
-    <div className="App">
-    
+    <>
+    <Suspense fallback = {<FullPageLoader />}>
     <BrowserRouter>
       <Header/>
       <ErrorBoundary>
       <Routes>
-       
           <Route exact path="/" element={<Home />}></Route>
           <Route exact path="/Products" element={<Products />}></Route>
           {/* <Route element={<ProtectedRoutes />}>  */}
@@ -55,11 +56,11 @@ function App() {
       </ErrorBoundary>
       <Footer/>
     </BrowserRouter>
+    </Suspense>
  
 
    {toastMsg &&  <div className="toast-msg">{toastMsg}</div> }
-   
-    </div>
+</>
   );
 }
 

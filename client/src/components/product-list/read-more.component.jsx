@@ -9,8 +9,8 @@ export const ReadMore = ({ children }) => {
   return (
           <p className="text">
             {isReadMore ? text.slice(0, 80) : text}
-            <button onClick={toggleReadMore} className="read-or-hide" style={{textTransform:"capitalize",cursor:"pointer",background:"transparent",border:"0"}}>
-              {isReadMore ? "...read more" : " show less"}
+            <button onClick={toggleReadMore} className="read-or-hide" style={{textTransform:"capitalize",cursor:"pointer",background:"transparent",border:"0",textDecoration:"underline"}}>
+              {isReadMore ? `   ...read more` : `  show less`}
             </button>
           </p>
         );

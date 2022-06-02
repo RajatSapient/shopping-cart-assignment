@@ -21,9 +21,31 @@
     border: none;
     border-radius: 8px;
     font-size: 14px;
-    padding: 0 20px;
+    padding: 10px 20px;
     font-weight: 600;
 }
+.ecom-home-categories .ecom-category-btn.button{
+    position: relative;
+    /* background: black; */
+  color: white;
+    cursor:pointer;
+    user-select:none;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    z-index: 1;
+  }
+  
+  .ecom-home-categories .ecom-category-btn.button:hover {
+    transition-duration: 0.1s;
+    background-color: #3A3A3A;
+  }
+  
+  .ecom-home-categories .ecom-category-btn.button:active {
+    top: 1px;
+  }
 
 .ecom-home-categories .ecom-category-heading{
     margin-bottom: 20px;

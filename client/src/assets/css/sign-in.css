@@ -35,7 +35,7 @@
 .ecom-errormsg{
     position: absolute;
 }
-.field {
+.ecomsignin .field {
     display: flex;
     flex-flow: column-reverse;
     /* margin-bottom: 1em; */
@@ -46,34 +46,35 @@
   * inputs, but hey, it's new and cool and could remove the 
   * pesky delay.
   */
-  label, input {
+  .ecomsignin label,.ecomsignin input {
     transition: all 0.2s;
     touch-action: manipulation;
   }
   
-  input {
+  .ecomsignin input {
     font-size: 1.5em;
     border: 0;
     border-bottom: 1px solid #ccc;
     font-family: inherit;
     -webkit-appearance: none;
     border-radius: 0;
-    padding: 0;
+    /* padding: 0; */
     cursor: text;
   }
   
-  input:focus {
+  .ecomsignin input:focus {
     outline: 0;
-    border-bottom: 2px solid #d10157;
+    border-bottom: 2px solid #00FFFF;
+    
   }
   
-  label {
+  .ecomsignin label {
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
 
 
-  input:placeholder-shown + label {
+  .ecomsignin input:placeholder-shown + label {
     cursor: text;
     max-width: 66.66%;
     white-space: nowrap;
@@ -88,20 +89,20 @@
     transition: inherit;
   }
 
-  input:focus::-webkit-input-placeholder {
+  .ecomsignin input:focus::-webkit-input-placeholder {
     opacity: 1;
   }
 
-  input:not(:placeholder-shown) + label,
-  input:focus + label {
+  .ecomsignin input:not(:placeholder-shown) + label,
+  .ecomsignin input:focus + label {
     transform: translate(-3px,12.8px) scale(0.8);
     cursor: pointer;
-    color: #d10157;
+    color: #00FFFF;
     width: fit-content;
     background: #fff;
     padding: 4px 5px;
   }
-  .ecomsignin-tagline{
+  .ecomsignin .ecomsignin-tagline{
       font-size: 20px;
       margin-top: 5px;
   }

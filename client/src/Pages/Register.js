@@ -36,20 +36,33 @@ const Register = () => {
             showLoader()
             setTimeout(() => {
                 hideLoader()
+                localStorage.removeItem('userInputs')
                 navigate('/')                   
             }, 3000);
         }
     },[formErrors])
 
+    useEffect(()=>{
+        const userData= JSON.parse((localStorage.getItem('userInputs')))
+        if(localStorage.getItem('userInputs') ){
+            setFormValues({...userData})
+        }
+        else{
+            setFormValues({...formValues})
+        }
+    },[])  
+
 
     useEffect(()=>{
-    
+        localStorage.setItem('userInputs',JSON.stringify(formValues))
+
     if(firstName === '' || lastName === '' || email === '' || password === '' || confirmPassword === '' ){
         setDisabled(true)
         return
     }else{
         setDisabled(false)
     }
+
     },[formValues])
 
     const handleSubmitForm = (event) =>{
