@@ -1,4 +1,4 @@
-import { useEffect,lazy,Suspense } from 'react';
+import React,{ useEffect,lazy,Suspense } from 'react';
 import './App.css';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 import Header from './components/header/header.component';
@@ -17,7 +17,8 @@ const Cart = lazy(() => import('./Pages/Cart'));
 
 
 function App() {
-  const [{toastMsg,isLogin},dispatch] = useStateValue()
+  
+  const [{ toastMsg,isLogin},dispatch] = useStateValue() || []
 
 
   useEffect(()=>{
@@ -37,6 +38,7 @@ function App() {
     })
     }
   },[])
+  
   return (
     <>
     <Suspense fallback = {<FullPageLoader />}>

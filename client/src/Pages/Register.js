@@ -18,7 +18,7 @@ const Register = () => {
     const [cPasswordType, setCPasswordType] = useState("password");
     const [disabled,setDisabled] = useState(true)
     const navigate = useNavigate();
-    const [{isLogin},dispatch] = useStateValue()
+    const [,dispatch] = useStateValue() || []
     const {firstName,lastName,email,password,confirmPassword} = formValues
     const [loader,showLoader,hideLoader] = useFullPageLoader()
 
@@ -36,25 +36,13 @@ const Register = () => {
             showLoader()
             setTimeout(() => {
                 hideLoader()
-                localStorage.removeItem('userInputs')
                 navigate('/')                   
             }, 3000);
         }
     },[formErrors])
 
-    useEffect(()=>{
-        const userData= JSON.parse((localStorage.getItem('userInputs')))
-        if(localStorage.getItem('userInputs') ){
-            setFormValues({...userData})
-        }
-        else{
-            setFormValues({...formValues})
-        }
-    },[])  
-
 
     useEffect(()=>{
-        localStorage.setItem('userInputs',JSON.stringify(formValues))
 
     if(firstName === '' || lastName === '' || email === '' || password === '' || confirmPassword === '' ){
         setDisabled(true)

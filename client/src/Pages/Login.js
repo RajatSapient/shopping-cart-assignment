@@ -14,7 +14,7 @@ const Login = () => {
     const [isSubmit,setIsSubmit] = useState(false)
     const [passwordType, setPasswordType] = useState("password");
     const navigate = useNavigate();
-    const [{},dispatch] = useStateValue()
+    const [,dispatch] = useStateValue()|| []
     const {userName,email,password} = formValues
     const [disabled,setDisabled] = useState(true)
     const [loader,showLoader,hideLoader] = useFullPageLoader()
@@ -31,34 +31,20 @@ const Login = () => {
             showLoader()
             setTimeout(() => {
                 hideLoader()
-                localStorage.removeItem('userInputs')
                 navigate('/')                   
             }, 3000);
            
         }
     },[formErrors])
 
-    useEffect(()=>{
-        const userData= JSON.parse((localStorage.getItem('userInputs')))
-        if(localStorage.getItem('userInputs') ){
-            setFormValues({...userData})
-        }
-        else{
-            setFormValues({...formValues})
-        }
-    },[])  
 
     useEffect(()=>{
-        localStorage.setItem('userInputs',JSON.stringify(formValues))
-
         if(userName === '' || email === '' || password === '' ){
             setDisabled(true)
         }else{
             setDisabled(false)
         }
         },[formValues])
-
-
 
 
     const handleSubmitForm = (event) =>{
@@ -114,8 +100,6 @@ const Login = () => {
         setPasswordType("password")
       }
 
-    
-
     return (<>
         <div className="ecomsignin">
     <div className="ecom-flex container ecom-align-items-center ecom-justify-content-between ecom-flexwrap-mob">
@@ -127,9 +111,8 @@ const Login = () => {
             <form  className="ecom-flex ecom-flex-direction-column">
             <div className="ecom-mb-20">
                 <div className="field">
-                    <input type="text" id= "name" placeholder="Name" name="userName" value={formValues.userName}  onChange = {handleChange}/>
+                    <input type="text" id= "name" placeholder="Name" name="userName" value={formValues.userName}  onChange = {handleChange} />
                     <label htmlFor="name">Name</label>
-                
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.userName}</p>
                 </div>
@@ -156,7 +139,6 @@ const Login = () => {
                  }
                 </div>
                 <p className="ecom-primary-color ecom-errormsg">{formErrors.password}</p>
- 
               
             </div>    
                 <button type="submit" onClick={handleSubmitForm} className="ecom-category-btn cursor-pointer" disabled = {disabled}>

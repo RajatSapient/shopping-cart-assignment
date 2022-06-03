@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from "react"
 import { getProductList,getCategoryData } from "../services/services"
-import { useStateValue } from "../contexts/StateProvider"
 import { useLocation } from "react-router-dom"
 import ProductList from "../components/product-list/product-list.component"
 import CategorySidebar from "../components/category-sidebar/category-sidebar.component"
@@ -13,11 +12,11 @@ const Products = () => {
     const [filterProducts,setFilterProducts] = useState([])
     const[category,setCategory] = useState([])
     const [tabStatus, setTabStatus ] = useState(urlParam)
-    const [{basket},dispatch] = useStateValue()
     const [windowInnerWidth,setWindowInnerWidth] = useState(window.innerWidth)
     const[show,setShow]=useState(false);
 
-
+    console.log("Yes i'm render")
+    
     useEffect(()=>{
         const handleResize = () => {
             setWindowInnerWidth(window.innerWidth)
@@ -28,15 +27,20 @@ const Products = () => {
         }
     },[])
 
-
-
+    useEffect(()=>{
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    },[])
+    
     const fetchProductsData = async() => {
         const response = await getProductList()
         setProducts(response)
         setFilterProducts(response)
     }
-
     useEffect(()=> {
+
         fetchProductsData()
     },[])
 
@@ -48,51 +52,40 @@ const Products = () => {
         }))
     },[tabStatus,products])
 
-    const fetchCategoryData = async() => {
-        const response = await getCategoryData()
-        setCategory(response)
-    }
 
-    useEffect(()=> {
+    useEffect(()=> {    
+        const fetchCategoryData = async() => {
+            const response = await getCategoryData()
+            setCategory(response)
+        }
         fetchCategoryData()
     },[])
 
 
-    const addToBasket = (id,imageURL,price,description,name) => {
-        dispatch({
-            type: 'ADD_TO_BASKET',
-            payload: {
-                id,
-                imageURL,
-                price,
-                description,
-                name}
-        })
-    }
 
+    
     return (
     <>
         <section className  = "ecom-productlisting ecom-flex ">
             <div className  = "container ecom-flex ecom-mob-flex-wrap">
 
-                    <CategorySidebar 
-                        categories={category} 
-                        screenSize ={windowInnerWidth} 
-                        show={show} 
-                        setShow={setShow}
-                        tabStatus = {tabStatus}
-                        setTabStatus = {setTabStatus}
-                    />
+                <CategorySidebar 
+                    categories={category} 
+                    screenSize ={windowInnerWidth} 
+                    show={show} 
+                    setShow={setShow}
+                    tabStatus = {tabStatus}
+                    setTabStatus = {setTabStatus}
+                />
         
-                    <ProductList 
+                <ProductList 
                     productList = {filterProducts} 
                     screenSize ={windowInnerWidth} 
-                    addToBasket={addToBasket}
-                    />
+                 />
 
             </div>
         </section>
     </>)
 }
 
-export default React.memo(Products)
+export default Products

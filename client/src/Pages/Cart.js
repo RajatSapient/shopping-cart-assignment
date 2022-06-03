@@ -59,7 +59,7 @@ const Cart = ({onClose,setOpenModal}) => {
                         {
                             basket?.map((data) => {
                                 return(
-                                    <CartItems data={data} addToBasket = {addToBasket} removeFromBasket = {removeFromBasket}/>
+                                    <CartItems data={data} addToBasket = {addToBasket} removeFromBasket = {removeFromBasket} key={data.id}/>
                                 )
                             })
                         }

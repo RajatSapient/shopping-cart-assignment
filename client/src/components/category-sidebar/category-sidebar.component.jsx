@@ -5,6 +5,7 @@ import "./category-sidebar.component.css"
 
 const CategorySidebar = (props) => {
     const { categories, screenSize, show, setShow, tabStatus, setTabStatus } = props
+    
     return (
         <>
             {screenSize < 768 ?
@@ -86,4 +87,4 @@ const CategorySidebar = (props) => {
     )
 }
 
-export default CategorySidebar
+export default React.memo(CategorySidebar)

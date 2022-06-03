@@ -1,17 +1,26 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import { ReadMore } from './read-more.component.jsx'
 import "./product-list.component.css"
+import { useStateValue } from '../../contexts/StateProvider.js'
 
 const ProductList = (props) => {
+    const [{basket},dispatch] = useStateValue()
 
-useEffect(()=>{
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-    });
-},[])
 
-    const { productList, screenSize, addToBasket } = props
+    const addToBasket =  (id,imageURL,price,description,name) => {
+        dispatch({
+            type: 'ADD_TO_BASKET',
+            payload: {
+                id,
+                imageURL,
+                price,
+                description,
+                name}
+        })
+    }
+
+    const { productList, screenSize } = props
+    console.log("Heuy Im render")
     return (
         <div className="ecom-productl ecom-flex">
             {productList?.length === 0 ? (

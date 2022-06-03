@@ -1,7 +1,7 @@
 export const initialState = {
     basket :[],
     toastMsg:"",
-    isLogin: { }
+    isLogin: {}
 } 
 
 export const getBasketTotal =  (basket) =>
@@ -28,6 +28,7 @@ const reducer = (state,action) => {
                 ...state,basket:newBaskets,toastMsg:"Product Added Successfully"
             }
         }
+       
    
     case 'REMOVE_FROM_BASKET':   
   

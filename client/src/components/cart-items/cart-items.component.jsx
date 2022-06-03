@@ -5,7 +5,7 @@ const CartItems = ( {data,addToBasket,removeFromBasket } ) => {
     const {id,imageURL,name,price,quantity,description} = data
   
     return (
-        <li key={id}>
+        <li key={name}>
             <div className="ecom-flex ecom-justify-content-between ecom-align-items-center ">
                 <div className="ecom-cart-img-wrapper">
                     <img src= {imageURL} alt={name} />
