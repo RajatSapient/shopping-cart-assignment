@@ -2,7 +2,6 @@ import React,{useState,useEffect} from "react"
 import visibility from "../assets/images/visibility.png"
 import visibilityOpen from "../assets/images/visibilityopen.png"
 import {useNavigate} from 'react-router-dom';
-import { useStateValue } from "../contexts/StateProvider"
 import "../assets/css/sign-in.css"
 import useFullPageLoader from "../hooks/useFullPage-Loader";
 
@@ -18,7 +17,6 @@ const Register = () => {
     const [cPasswordType, setCPasswordType] = useState("password");
     const [disabled,setDisabled] = useState(true)
     const navigate = useNavigate();
-    const [,dispatch] = useStateValue() || []
     const {firstName,lastName,email,password,confirmPassword} = formValues
     const [loader,showLoader,hideLoader] = useFullPageLoader()
 
@@ -26,13 +24,13 @@ const Register = () => {
 
     useEffect(()=>{
         if(Object.keys(formErrors).length === 0 && isSubmit){
-            dispatch({
-                type: 'LOGIN_DATA',
-                payload: {
-                    userName:firstName,
-                    isLoggedIn: true    
-                }
-            })
+            // dispatch({
+            //     type: 'LOGIN_DATA',
+            //     payload: {
+            //         userName:firstName,
+            //         isLoggedIn: true    
+            //     }
+            // })
             showLoader()
             setTimeout(() => {
                 hideLoader()

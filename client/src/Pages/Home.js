@@ -8,9 +8,10 @@ import Slider from "react-slick";
 
 const Home = () => {
 
+
     const [categories, setCategories] = useState([])
     const [data,setData] = useState([])
-    
+
     const getBannerData = async() => {
         const response = await getBanner()
         setData(response)
@@ -26,27 +27,48 @@ const Home = () => {
     }
 
     useEffect(() => {
+
         fetchCategoriesData()
     }, [])
 
     const renderSlides = () =>
-    data?.length === 0 ? (<h1>Slidee</h1>):
+    data?.length === 0 ? (<h1>Loading Slides</h1>):
     data.map( ({bannerImageUrl,bannerImageAlt,id}) => {
-     return( <div key ={id}>
+     return( <div key={id}>
                 <img src= {bannerImageUrl} alt={bannerImageAlt}/>
       </div>
      )
     });
 
     return (
+   
         <>
             <div className="ecom-hero-banner">
                 <Slider dots={true} >{renderSlides()}</Slider>
             </div>
-            <CategoryList categoriesData={categories} />
 
+            {categories?.length === 0 ? (
+                <div className="ecom-homecategories-wraper">No Data in Categories</div>) : (
+                <ul className="ecom-homecategories-wraper">
+                    {categories.map((data) => {
+                        return (
+                            <CategoryList categoriesData={data} key={data.id} /> 
+                        )
+                    })}
+
+                </ul>
+            )}
+
+
+
+
+
+            {/* <CategoryList categoriesData={categories} /> */}
+           
         </>
     )
 }
 
 export default Home
+
+

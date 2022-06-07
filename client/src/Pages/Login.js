@@ -2,7 +2,6 @@ import React,{useState,useEffect} from "react"
 import {useNavigate} from 'react-router-dom';
 import visibility from "../assets/images/visibility.png"
 import visibilityOpen from "../assets/images/visibilityopen.png"
-import { useStateValue } from "../contexts/StateProvider"
 import "../assets/css/sign-in.css"
 import useFullPageLoader from "../hooks/useFullPage-Loader";
 
@@ -14,20 +13,19 @@ const Login = () => {
     const [isSubmit,setIsSubmit] = useState(false)
     const [passwordType, setPasswordType] = useState("password");
     const navigate = useNavigate();
-    const [,dispatch] = useStateValue()|| []
     const {userName,email,password} = formValues
     const [disabled,setDisabled] = useState(true)
     const [loader,showLoader,hideLoader] = useFullPageLoader()
 
     useEffect(()=>{
         if(Object.keys(formErrors).length === 0 && isSubmit){
-            dispatch({
-                type: 'LOGIN_DATA',
-                payload: {
-                    userName,
-                    isLoggedIn: true    
-                }
-            })
+            // dispatch({
+            //     type: 'LOGIN_DATA',
+            //     payload: {
+            //         userName,
+            //         isLoggedIn: true    
+            //     }
+            // })
             showLoader()
             setTimeout(() => {
                 hideLoader()

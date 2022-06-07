@@ -1,26 +1,18 @@
 import React from 'react'
 import { ReadMore } from './read-more.component.jsx'
 import "./product-list.component.css"
-import { useStateValue } from '../../contexts/StateProvider.js'
+import { useDispatch } from 'react-redux'
+// import { useStateValue } from '../../contexts/StateProvider.js'
+import { addToBasket } from '../../redux/actions/productActions.js'
+
 
 const ProductList = (props) => {
-    const [{basket},dispatch] = useStateValue()
+    
+    const dispatch = useDispatch()
 
-
-    const addToBasket =  (id,imageURL,price,description,name) => {
-        dispatch({
-            type: 'ADD_TO_BASKET',
-            payload: {
-                id,
-                imageURL,
-                price,
-                description,
-                name}
-        })
-    }
+    console.log("Im Product List Component")
 
     const { productList, screenSize } = props
-    console.log("Heuy Im render")
     return (
         <div className="ecom-productl ecom-flex">
             {productList?.length === 0 ? (
@@ -28,7 +20,8 @@ const ProductList = (props) => {
                     <h1>No Products Are available under this Category</h1></div>) : (
                 <div className="ecom-product-category-plisting" id="ecom-productListing">
                     <div className="ecom-flex ecom-flexwrap">
-                        {productList?.map(({ id, imageURL, price, description, name }) => {
+                        {productList?.map((data) => {
+                            const { id, imageURL, price, description, name } =  data
                             return (
                                 <div key={id} className="ecom-productcard ecom-flex ecom-flex-direction-column ecom-text-center">
                                     <h2 className="ecom-productcart-title">{name}</h2>
@@ -46,7 +39,9 @@ const ProductList = (props) => {
                                                 <div className="product-desc">
                                                      <ReadMore>{description}</ReadMore>
                                                 </div>
-                                                <button className="ecom-category-btn cursor-pointer button" style={{ marginTop: "15px" }} onClick={() => addToBasket(id, imageURL, price, description, name)}>
+                                                <button className="ecom-category-btn cursor-pointer button" style={{ marginTop: "15px" }} 
+                                                 onClick={() =>  dispatch(addToBasket(data)) }
+                                                >
                                                     {`Buy Now @ Rs ${price}`}
                                                 </button>
                                             </div>
@@ -55,7 +50,9 @@ const ProductList = (props) => {
                                     <div className="ecom-category-btn-wrapper ecom-justify-content-between ecom-flex ecom-align-items-center">
                                         {screenSize > 1024 ? (<span>MRP Rs: {price}</span>) : (<></>)}
                                         {screenSize < 768 ? (<></>) : (
-                                            <button className="ecom-category-btn cursor-pointer button" onClick={() => addToBasket(id, imageURL, price, description, name)}>
+                                            <button className="ecom-category-btn cursor-pointer button" 
+                                            onClick={() =>  dispatch(addToBasket(data)) }
+                                            >
                                                 {screenSize > 1024 ? "Buy Now" : `Buy Now @ Rs ${price}`}
                                             </button>
                                         )}

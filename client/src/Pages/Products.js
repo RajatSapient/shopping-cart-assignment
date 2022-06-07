@@ -15,7 +15,6 @@ const Products = () => {
     const [windowInnerWidth,setWindowInnerWidth] = useState(window.innerWidth)
     const[show,setShow]=useState(false);
 
-    console.log("Yes i'm render")
     
     useEffect(()=>{
         const handleResize = () => {
@@ -40,7 +39,6 @@ const Products = () => {
         setFilterProducts(response)
     }
     useEffect(()=> {
-
         fetchProductsData()
     },[])
 
@@ -50,7 +48,7 @@ const Products = () => {
         setFilterProducts(products.filter((ele)=>{
             return ele.category === tabStatus
         }))
-    },[tabStatus,products])
+    },[tabStatus])
 
 
     useEffect(()=> {    
@@ -61,7 +59,7 @@ const Products = () => {
         fetchCategoryData()
     },[])
 
-
+console.log("I'm Render Product Page")
 
     
     return (
